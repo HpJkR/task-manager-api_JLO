@@ -31,6 +31,10 @@ class TaskType extends GraphQLType
             'type' => Type::string(),
             'description' => 'The status of the task',
         ],
+        'created_at' => [  // Ajout du nouveau champ
+            'type' => Type::string(), // ou Type::nonNull(Type::string()) si le champ ne peut pas être null
+            'description' => 'The creation date of the task',
+        ],
         
     ];
 }

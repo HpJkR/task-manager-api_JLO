@@ -1,0 +1,111 @@
+.taskListContainer {
+    display: flex;
+    // justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    // border: 2px solid blue;
+    width: 80%;
+    .titleTaskList {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // border: 2px solid red;
+        background-color: #bebbd9;
+        color: #ffffff;
+        font-family: $title-font;
+        font-size: 2vw;
+        width: 100%;
+        height: 20%;
+    }
+    .addTaskList {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 20%;
+    }
+    .inProgressContainer {
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+        height: 80vh;
+        padding-bottom: 10px;
+        // border: 2px solid green;
+        overflow-x: scroll;
+        font-family: $content-font;
+        .inProgressContent {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 40vw;
+            height: 20vh;
+            border-radius: 10px;
+            // padding: 10px;
+            background: #ffffff;
+            box-shadow: 11px 11px 21px #dedede, -11px -11px 21px #ffffff;
+            // border: 2px solid blue;
+            #descriptionTask {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                word-wrap: break-word;
+                overflow: auto;
+                height: 100%;
+                gap: 10px;
+                #dateTask {
+                    font-size: clamp(12px, 0.8vw, 18px);
+                }
+            }
+            button {
+                height: 100%;
+                background: none;
+                border: none;
+                padding: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            #buttonTerminated {
+                background-color: #6732BA;
+                -webkit-border-top-left-radius: 10px;
+                -webkit-border-bottom-left-radius: 10px;
+                -moz-border-radius-topleft: 10px;
+                -moz-border-radius-bottomleft: 10px;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                color: #FFF;
+                font-family: $content-font;
+            }
+            #buttonDelete {
+                background-color: #FF2F89;
+                -webkit-border-top-right-radius: 10px;
+                -webkit-border-bottom-right-radius: 10px;
+                -moz-border-radius-topright: 10px;
+                -moz-border-radius-bottomright: 10px;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                color: #FFF;
+                font-family: $content-font;
+            }
+        }
+    }
+    li {
+        list-style-type: none;
+    }
+}
+.moving {
+    transition: transform 1s ease-in-out;
+  }
+  
+  .moveRight {
+    transform: translateX(200%);
+  }
+  
+  .moveLeft {
+    transform: translateX(-200%);
+  }
+  

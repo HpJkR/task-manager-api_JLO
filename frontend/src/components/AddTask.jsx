@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const AddTask = ({ onAdd }) => {
     const [newTask, setNewTask] = useState("");
 
@@ -17,6 +18,7 @@ const AddTask = ({ onAdd }) => {
           id
           description
           status
+          created_at 
         }
       }`,
             })
@@ -25,7 +27,7 @@ const AddTask = ({ onAdd }) => {
                     const addedTask = response.data.data.createTask;
                     onAdd(addedTask);
                     setNewTask("");
-                    toast.success("Tâches ajoutée avec succès", {
+                    toast.success("Tâche ajoutée avec succès", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }
@@ -42,7 +44,7 @@ const AddTask = ({ onAdd }) => {
     };
 
     return (
-        <div>
+        <div className="addTaskContainer">
             <input
                 type="text"
                 placeholder="Nouvelle tâche"

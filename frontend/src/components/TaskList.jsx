@@ -1,59 +1,70 @@
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import AddTask from "./AddTask";
-import "react-toastify/dist/ReactToastify.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const TaskList = ({ tasks, setTasks, markAsComplete, removeTask }) => {
-    const addTask = (newTask) => {
-        setTasks([...tasks, newTask]);
+    const sortedTasks = [...tasks].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const [move, setMove] = useState({});
+
+    const handleRemove = (id) => {
+        setMove({ [id]: "moveRight" });
+        setTimeout(() => {
+            removeTask(id);
+            setMove({});
+        }, 1000);
     };
 
-    //   return (
-    //     <>
-    //       <ul>
-    //       {tasks.map(task => (
-    //         <li key={task.id}>
-    //     {task.status === "in_progress" &&
-    //     <>
-    //     <p>{task.description}</p>
-    //     <button onClick={() => markAsComplete(task.id)}>Marquer comme terminée</button>
-    //     <button onClick={() => markAsInProgress(task.id)}>Marquer comme en cours</button>
-    //     <button onClick={() => removeTask(task.id)}>Supprimer</button>
-    //     </>
-    //   }
-    //   </li>
-    // ))}
-    // <button onClick={deleteCompletedTasks}>Supprimer toutes les tâches terminées</button>
-    //       </ul>
-    //     </>
-    //   );
+    const handleComplete = (id) => {
+        setMove({ [id]: "moveLeft" });
+        setTimeout(() => {
+            markAsComplete(id);
+            setMove({});
+        }, 1000);
+    };
 
     return (
-        <>
-            <h1>Gestionnaire de tâches</h1>
-            <AddTask onAdd={addTask} />
-            <>
-                {tasks.map((task) => (
-                    <ul key={task.id}>
-                        <li>
-                            {task.status === "in_progress" && (
-                                <>
-                                    <p>{task.description}</p>
+        <div className="taskListContainer">
+            <div className="titleTaskList">
+                <h1>Tâches en cours</h1>
+            </div>
+            <div className="addTaskList">
+                <AddTask onAdd={(newTask) => setTasks([...tasks, newTask])} />
+            </div>
+            <ul className="inProgressContainer">
+                {sortedTasks.map(
+                    (task) =>
+                        task.status === "in_progress" && (
+                            <li key={task.id}>
+                                <div
+                                    className={`inProgressContent moving ${
+                                        move[task.id] || ""
+                                    }`}
+                                >
                                     <button
-                                        onClick={() => markAsComplete(task.id)}
+                                        id="buttonTerminated"
+                                        onClick={() => handleComplete(task.id)}
                                     >
-                                        Marquer comme terminée
+                                        Terminée
                                     </button>
-                                    <button onClick={() => removeTask(task.id)}>
+                                    <div id="descriptionTask">
+                                        <p>{task.description}</p>
+                                        <span id="dateTask">
+                                            {new Date(
+                                                task.created_at
+                                            ).toLocaleDateString("fr-FR")}
+                                        </span>
+                                    </div>
+                                    <button
+                                        id="buttonDelete"
+                                        onClick={() => handleRemove(task.id)}
+                                    >
                                         Supprimer
                                     </button>
-                                </>
-                            )}
-                        </li>
-                    </ul>
-                ))}
-            </>
-        </>
+                                </div>
+                            </li>
+                        )
+                )}
+            </ul>
+        </div>
     );
 };
 

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 
+
+
 import TaskList from "./components/TaskList";
 import CompletedTasks from "./components/CompletedTasks";
 import Navbar from "./components/NavBar";
@@ -19,6 +21,7 @@ function App() {
           id
           description
           status
+          created_at
         }
       }`,
             })
@@ -36,10 +39,6 @@ function App() {
                 console.error("Erreur :", error);
             });
     }, []);
-
-    // const addTask = (newTask) => {
-    //   setTasks([...tasks, newTask]);
-    // };
 
     const updateTask = (updatedTask) => {
         const existingTask = tasks.find((task) => task.id === updatedTask.id);
@@ -115,7 +114,7 @@ function App() {
                 if (response.data.data && response.data.data.updateTask) {
                     const updatedTask = { id, status: newStatus };
                     updateTask(updatedTask);
-                    toast.success("Tâches modifié avec succès", {
+                    toast.success("Tâche modifiée avec succès", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }
@@ -168,7 +167,6 @@ function App() {
             <Router>
             <Navbar />
                 <Routes>
-                    {/* <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} deleteCompletedTasks={deleteCompletedTasks} /> */}
                     <Route
                         path="/in-progress"
                         element={

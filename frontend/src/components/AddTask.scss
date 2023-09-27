@@ -1,0 +1,36 @@
+.addTaskContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+    // border: 2px solid red;
+
+    input {
+        appearance: none;
+        border: none;
+        outline: none;
+        border-bottom: 0.2em solid #EBEAF4;
+        background: rgba(#EBEAF4, 0.2);
+        border-radius: 0.2em 0.2em 0 0;
+        padding: 0.4em;
+        color: #000;
+        font-family: $content-font;
+        font-weight: 600;
+        font-size: clamp(16px, 1.2vw, 32px);
+        width: 42%;
+        height: 50%;
+    }
+    button {
+        height: 45%;
+        padding: 5px;
+        font-family: $content-font;
+        font-weight: bold;
+        background: none;
+        background-color: $navbar-color;
+        border: none;
+        border-radius: 5px;
+        color: #FFF;
+    }
+}
