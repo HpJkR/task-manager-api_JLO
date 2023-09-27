@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Types;
 
-use App\Models\Tag;
+use App\Models\Task;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
@@ -26,6 +26,10 @@ class TaskType extends GraphQLType
         'description' => [
             'type' => Type::string(),
             'description' => 'The description of the task',
+        ],
+        'status' => [
+            'type' => Type::string(),
+            'description' => 'The status of the task',
         ],
         
     ];
