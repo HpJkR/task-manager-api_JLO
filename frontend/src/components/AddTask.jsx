@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddTask = ({ onAdd }) => {
   const [newTask, setNewTask] = useState('');
@@ -22,10 +24,16 @@ const AddTask = ({ onAdd }) => {
         const addedTask = response.data.data.createTask;
         onAdd(addedTask);
         setNewTask('');
+        toast.success('Tâches ajoutée avec succès', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     })
     .catch(error => {
       console.error('Une erreur s\'est produite:', error);
+      toast.error('Une erreur s\'est produite lors de l\'ajout de la tâche', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     });
   };
 
