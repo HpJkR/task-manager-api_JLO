@@ -3,16 +3,17 @@ import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-
-
+import { ThemeProvider } from "./ThemeContext";
 
 import TaskList from "./components/TaskList";
 import CompletedTasks from "./components/CompletedTasks";
 import Navbar from "./components/NavBar";
+import Settings from "./components/Setting";
 
 function App() {
+    // État local pour stocker les tâches
     const [tasks, setTasks] = useState([]);
-
+    // Charger les tâches à partir de l'API au montage du composant
     useEffect(() => {
         axios
             .post("http://localhost:8000/graphql", {
@@ -39,7 +40,7 @@ function App() {
                 console.error("Erreur :", error);
             });
     }, []);
-
+    // Mettre à jour une tâche spécifique
     const updateTask = (updatedTask) => {
         const existingTask = tasks.find((task) => task.id === updatedTask.id);
         const mergedTask = { ...existingTask, ...updatedTask };
@@ -50,7 +51,7 @@ function App() {
             )
         );
     };
-
+    // Supprimer une tâche spécifique
     const deleteTask = (id) => {
         console.log("Appel à deleteTask avec ID:", id);
         setTasks((prevTasks) => {
@@ -59,7 +60,7 @@ function App() {
             return newTasks;
         });
     };
-
+    // Supprimer toutes les tâches complétées
     const deleteCompletedTasks = () => {
         axios
             .post("http://localhost:8000/graphql", {
@@ -87,17 +88,17 @@ function App() {
                 );
             });
     };
-
+    // Marquer une tâche comme complétée
     const markAsComplete = (id) => {
         console.log("Marquage comme complété, ID:", id);
         updateTaskStatus(id, "completed");
     };
-
+    // Marquer une tâche comme en cours
     const markAsInProgress = (id) => {
         console.log("Marquage comme en cours, ID:", id);
         updateTaskStatus(id, "in_progress");
     };
-
+    // Mettre à jour le statut d'une tâche
     const updateTaskStatus = (id, newStatus) => {
         axios
             .post("http://localhost:8000/graphql", {
@@ -129,7 +130,7 @@ function App() {
                 );
             });
     };
-
+    // Supprimer une tâche
     const removeTask = (id) => {
         console.log("Tentative de suppression, ID:", id);
         axios
@@ -163,36 +164,38 @@ function App() {
 
     return (
         <div className="App">
-          
-            <Router>
-            <Navbar />
-                <Routes>
-                    <Route
-                        path="/in-progress"
-                        element={
-                            <TaskList
-                                tasks={tasks}
-                                setTasks={setTasks}
-                                markAsComplete={markAsComplete}
-                                removeTask={removeTask}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/completed"
-                        element={
-                            <CompletedTasks
-                                tasks={tasks}
-                                setTasks={setTasks}
-                                markAsInProgress={markAsInProgress}
-                                removeTask={removeTask}
-                                deleteCompletedTasks={deleteCompletedTasks}
-                            />
-                        }
-                    />
-                </Routes>
-            </Router>
-            <ToastContainer />
+            <ThemeProvider>
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route
+                            path="/in-progress"
+                            element={
+                                <TaskList
+                                    tasks={tasks}
+                                    setTasks={setTasks}
+                                    markAsComplete={markAsComplete}
+                                    removeTask={removeTask}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/completed"
+                            element={
+                                <CompletedTasks
+                                    tasks={tasks}
+                                    setTasks={setTasks}
+                                    markAsInProgress={markAsInProgress}
+                                    removeTask={removeTask}
+                                    deleteCompletedTasks={deleteCompletedTasks}
+                                />
+                            }
+                        />
+                        <Route path="/settings" element={<Settings />} />
+                    </Routes>
+                </Router>
+                <ToastContainer />
+            </ThemeProvider>
         </div>
     );
 }

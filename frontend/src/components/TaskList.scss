@@ -1,3 +1,4 @@
+// Conteneur principal de la liste des tâches
 .taskListContainer {
     display: flex;
     // justify-content: space-around;
@@ -5,25 +6,38 @@
     align-items: center;
     // border: 2px solid blue;
     width: 80%;
+    height: 100%;
+
+    // Titre de la liste des tâches
     .titleTaskList {
         display: flex;
         justify-content: center;
         align-items: center;
-        // border: 2px solid red;
-        background-color: #bebbd9;
-        color: #ffffff;
+        flex-direction: column;
+        color: #6732ba;
         font-family: $title-font;
         font-size: 2vw;
         width: 100%;
         height: 20%;
     }
+
+    // Ligne sous le titre
+    .lineUnderTitle {
+        width: 40%;
+        height: 2px;
+        background-color: #6732ba;
+    }
+
+    // Conteneur pour ajouter des tâches
     .addTaskList {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 20%;
+        height: 10%;
     }
+
+    // Conteneur des tâches en cours
     .inProgressContainer {
         display: flex;
         // justify-content: center;
@@ -31,11 +45,13 @@
         flex-direction: column;
         gap: 30px;
         width: 100%;
-        height: 80vh;
+        height: 70%;
         padding-bottom: 10px;
         // border: 2px solid green;
         overflow-x: scroll;
         font-family: $content-font;
+
+        // Contenu de la tâche en cours
         .inProgressContent {
             display: flex;
             justify-content: space-between;
@@ -47,7 +63,8 @@
             // padding: 10px;
             background: #ffffff;
             box-shadow: 11px 11px 21px #dedede, -11px -11px 21px #ffffff;
-            // border: 2px solid blue;
+
+            // Description de la tâche
             #descriptionTask {
                 display: flex;
                 flex-direction: column;
@@ -57,6 +74,8 @@
                 overflow: auto;
                 height: 100%;
                 gap: 10px;
+
+                // Taille de la police pour la date
                 #dateTask {
                     font-size: clamp(12px, 0.8vw, 18px);
                 }
@@ -70,26 +89,28 @@
                 font-weight: bold;
             }
             #buttonTerminated {
-                background-color: #6732BA;
+                background-color: #6732ba;
                 -webkit-border-top-left-radius: 10px;
                 -webkit-border-bottom-left-radius: 10px;
                 -moz-border-radius-topleft: 10px;
                 -moz-border-radius-bottomleft: 10px;
                 border-top-left-radius: 10px;
                 border-bottom-left-radius: 10px;
-                color: #FFF;
+                color: #fff;
                 font-family: $content-font;
+                padding: 10px;
             }
             #buttonDelete {
-                background-color: #FF2F89;
+                background-color: #ff2f89;
                 -webkit-border-top-right-radius: 10px;
                 -webkit-border-bottom-right-radius: 10px;
                 -moz-border-radius-topright: 10px;
                 -moz-border-radius-bottomright: 10px;
                 border-top-right-radius: 10px;
                 border-bottom-right-radius: 10px;
-                color: #FFF;
+                color: #fff;
                 font-family: $content-font;
+                padding: 10px;
             }
         }
     }
@@ -99,13 +120,12 @@
 }
 .moving {
     transition: transform 1s ease-in-out;
-  }
-  
-  .moveRight {
+}
+
+.moveRight {
     transform: translateX(200%);
-  }
-  
-  .moveLeft {
+}
+
+.moveLeft {
     transform: translateX(-200%);
-  }
-  
+}
