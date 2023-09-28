@@ -1,0 +1,186 @@
+// Conteneur pour les tâches terminées
+.completedTasksContainer {
+    // Utilisation de Flexbox pour l'alignement
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // Définition des dimensions du conteneur
+    width: 80%;
+    height: 100%;
+
+    // Titre des tâches terminées
+    .titleCompletedTasks {
+        // Utilisation de Flexbox pour l'alignement
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        // Styles du texte
+        color: #6732ba;
+        font-family: $title-font;
+        border-radius: 10px;
+        font-size: 2vw;
+
+        // Dimensions du conteneur du titre
+        width: 90%;
+        height: 20%;
+
+        // Ligne sous le titre
+        .lineUnderTitle {
+            width: 50%;
+            height: 2px;
+            background-color: #6732ba;
+        }
+    }
+
+    // Retire le style par défaut des éléments de liste
+    li {
+        list-style-type: none;
+    }
+
+    // Conteneur pour le contenu des tâches terminées
+    .completedTasksContent {
+        // Utilisation de Flexbox pour l'alignement
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        // Espace entre les éléments
+        gap: 30px;
+
+        // Dimensions du conteneur
+        width: 100%;
+        height: 70vh;
+        
+        // Padding et défilement
+        padding-bottom: 10px;
+        overflow-x: scroll;
+
+        // Police du texte
+        font-family: $content-font;
+
+        // Carte pour chaque tâche terminée
+        .completedCard {
+            // Utilisation de Flexbox pour l'alignement
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            // Espace entre les éléments
+            gap: 10px;
+
+            // Dimensions de la carte
+            width: 40vw;
+            height: 20vh;
+
+            // Bord arrondi et couleur de fond
+            border-radius: 10px;
+            background: #ffffff;
+
+            // Ombre autour de la carte
+            box-shadow: 11px 11px 21px #dedede, -11px -11px 21px #ffffff;
+
+            // Description de la tâche
+            #descriptionTaskCompleted {
+                // Utilisation de Flexbox pour l'alignement
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                // Options de texte
+                word-wrap: break-word;
+                overflow: auto;
+                
+                // Dimensions
+                height: 100%;
+                gap: 10px;
+
+                // Taille de police adaptative pour la date
+                #dateTask {
+                    font-size: clamp(12px, 0.8vw, 18px);
+                }
+            }
+
+            // Styles pour tous les boutons
+            button {
+                height: 100%;
+                background: none;
+                border: none;
+                padding: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            // Bouton "Terminé"
+            #buttonTerminated {
+                background-color: #6732ba;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                color: #fff;
+                font-family: $content-font;
+                padding: 10px;
+            }
+
+            // Bouton "Supprimer"
+            #buttonDelete {
+                background-color: #ff2f89;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                color: #fff;
+                font-family: $content-font;
+                padding: 10px;
+            }
+        }
+    }
+
+    // Boutons pour supprimer toutes les tâches
+    .deleteAllbuttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 8vh;
+
+        button {
+            border: none;
+            background: none;
+            background-color: #6732ba;
+            color: #ffffff;
+            font-family: $content-font;
+            font-weight: 500;
+            font-size: clamp(16px, 1vw, 32px);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+
+    // Message pour "Aucune tâche terminée"
+    .noTasksCompleted {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $content-font;
+        font-size: clamp(20px, 2vw, 48px);
+        width: 100%;
+        height: auto;
+    }
+}
+
+// Animation pour le mouvement de la carte
+.moving {
+    transition: transform 1s ease-in-out;
+}
+
+// Mouvement à droite
+.moveRight {
+    transform: translateX(200%);
+}
+
+// Mouvement à gauche
+.moveLeft {
+    transform: translateX(-200%);
+}

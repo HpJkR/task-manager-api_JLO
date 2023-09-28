@@ -8,15 +8,14 @@ use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
-use Rebing\GraphQL\Support\SelectFields;
-use App\Models\Task; 
+use App\Models\Task;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
-class CreateTaskMutation extends Mutation
+class UpdateTaskMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'createTask',
-        'description' => 'A mutation'
+        'name' => 'updateTask',
+        'description' => 'Met à jour une tâche existante'
     ];
 
     public function type(): Type
@@ -27,6 +26,7 @@ class CreateTaskMutation extends Mutation
     public function args(): array
     {
         return [
+            'id' => ['name' => 'id', 'type' => Type::nonNull(Type::int())],
             'description' => ['name' => 'description', 'type' => Type::string()],
             'status' => ['name' => 'status', 'type' => Type::string()],
         ];
@@ -34,15 +34,22 @@ class CreateTaskMutation extends Mutation
 
     public function resolve($root, array $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-        $fields = $getSelectFields();
-        $select = $fields->getSelect();
-        $with = $fields->getRelations();
-        $task = new Task();
-        $task->description = $args['description'];
-        $task->status = $args['status'];
+        $task = Task::find($args['id']);
+
+        if (!$task) {
+            return null;
+        }
+
+        if (isset($args['description'])) {
+            $task->description = $args['description'];
+        }
+
+        if (isset($args['status'])) {
+            $task->status = $args['status'];
+        }
+
         $task->save();
 
         return $task;
     }
 }
-
